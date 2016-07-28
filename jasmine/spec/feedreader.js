@@ -92,7 +92,9 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-
+        it('has at least one entry in a feed', function(){
+            
+        });
     });
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
