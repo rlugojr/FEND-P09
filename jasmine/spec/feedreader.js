@@ -36,7 +36,8 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined;
                 expect(feed.url.length).not.toBe(0);
-                expect(feed.url.length).not.toBeNull;
+                expect(feed.url).not.toBeNull;
+                expect(feed.url).not.toBe("");
             }, this);
         });
 
@@ -101,7 +102,9 @@ $(function() {
         it('has at least one entry in a feed', function(done){
             $(document).ready(function(){
                 var currArticles = $('article');
+                var boolEntry = $('article').hasClass('entry');
                 expect(currArticles.length).toBeGreaterThan(0);
+                expect(boolEntry).toBe(true);
                 done();
             });
         });
