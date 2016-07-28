@@ -92,8 +92,18 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        it('has at least one entry in a feed', function(){
-            
+        beforeEach(function(done) {
+            setTimeout(function() {
+                loadFeed(0, done);
+            }, 1);
+        });
+
+        it('has at least one entry in a feed', function(done){
+            $(document).ready(function(){
+                var currArticles = $('article');
+                expect(currArticles.length).toBeGreaterThan(0);
+                done();
+            });
         });
     });
     /* TODO: Write a new test suite named "New Feed Selection" */
@@ -102,6 +112,26 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        var feedNum = -1,
+            lastArticle='',
+            currArticle='';
 
+        beforeEach(function(done) {
+            feedNum++;
+            setTimeout(function() {
+                loadFeed(feedNum, done);
+            }, 1);
+        });
+
+        it('content changes when a new feed is loaded', function(done){
+            $(document).ready(function(){
+                allFeeds.forEach(function(feed) {
+                    var currArticles = $('article');
+                    currArticle = currArticles[0];
+                    expect(lastArticle).not.toBe(currArticle);
+                    done();
+                }, this);
+            });
+        });
     });
 }());
