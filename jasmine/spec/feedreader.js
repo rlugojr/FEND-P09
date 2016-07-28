@@ -32,6 +32,9 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        /*To be thorough, I checked that the URL is defined, that it is
+        longer than 0 characters, does not contain a null value or an empty value.
+        */
         it('has URLs for each feed.', function (){
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined;
@@ -46,6 +49,9 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        /*This is similar to the prior test. Name must be defined,
+         must not be null or empty value.
+        */
         it('has names for each feed.', function (){
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined;
@@ -63,7 +69,11 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-        
+        /*While analyzing the behavior in DevTools and reviewing the CSS,
+          it seemed logical that checking the "body" element to see if it
+          was assigned the class "menu-hidden" was the best choice for testing
+          this criteria.
+        */
         it('has a hidden menu by default', function () {
             $(document).ready(function(){
                 expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -75,6 +85,15 @@ $(function() {
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
+          */
+          /*This test takes elements from the prior test but requires
+            testing the event that hides the menu.  In the code, I found
+            the event handler tied to an "a" element with a menu icon.
+            It has a class of "menu-icon-link".  I used jQuery to trigger
+            the event on the icon, first to make the menu visible and then
+            again to hide the menu, watching the "body" to see if it has
+            the class "menu-hidden" assigned when it is expected to be in
+            each instance.
           */
         it('changes visibiity when the menu icon is clicked', function(){
             $(document).ready(function(){
@@ -93,6 +112,14 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        /*Using beforeEach to setup the asynchronous request for "loadFeed",
+          I also added "done" in the call back instead of calling it seperately.
+          That ensures that "done" is only called after "loadFeed" has completed.
+          Then I used DevTools to find the element or class, whichever was more unique
+          and found that "article" is only present in the results.  Using a jQuery selector,
+          I retrieve any instances of "article" and as a double check I ensure that
+          "article" has a class of "entry".
+        */
         beforeEach(function(done) {
             setTimeout(function() {
                 loadFeed(0, done);
@@ -115,6 +142,15 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        /*Very similar to the prior test, using the structure for handling asynchronous requests.
+          This test required declaring local variables
+          outside of each function so that they are accessible anywhere.  One variable
+          keeps track of the feedIndex to be loaded and the other two contain the prior
+          feed's article text and the current feed's article text for comparison, to 
+          ensure that the text is different each time the feed is switched.  By using a forEach
+          loop we don't need to keep count or worry about running "loadFeed" with an invalid index
+          which would generate an error.
+        */
         var feedNum = -1,
             lastArticle='',
             currArticle='';
