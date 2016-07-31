@@ -14,7 +14,7 @@
 $(function() {
     //Create a test suite for the RSS Feeds.
     describe('RSS Feeds', function() {
-        //Ensure that allFeeds object is defined and not empty.
+        //Ensure that allFeeds object is defined and is not empty.
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
@@ -23,17 +23,19 @@ $(function() {
         /*Ensure each RSS Feed URL is defined, is longer than 0 characters,
          *does not contain a null value and is a valid URL.
         */
-        it('has URLs for each feed.', function() {
+        it('have URLs for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined;
                 expect(feed.url.length).not.toBe(0);
                 expect(feed.url).not.toBeNull;
-                expect(re_weburl.test(feed.url)).toBe(true);  //Use regex-weburls.js to check for valid URL
+                expect(re_weburl.test(feed.url)).toBe(true);  //Uses regex-weburls.js to check for valid URL
             }, this);
         });
 
-        //Ensure that each feed has a name value that is not null or one or more space characters.
-        it('has names for each feed.', function() {
+        /*Ensure that each feed has a name value that is not null
+         * and doesn't have one or more space characters.
+        */
+        it('have a name value for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined;
                 expect(feed.name).not.toBeNull;
@@ -45,7 +47,7 @@ $(function() {
     describe('The menu', function() {
 
         //*Ensure the "body" element has the class "menu-hidden" assigned by default. 
-        it('has a hidden menu by default', function() {
+        it('is hidden by default', function() {
             $(document).ready(function() {
                 expect($('body').hasClass('menu-hidden')).toBe(true);
             });
@@ -69,23 +71,22 @@ $(function() {
 
     //Test Suite for RSS Feed entries.
     describe('Initial Entries', function() {
-
-        //Using beforeEach to call "loadFeed" with a callback that returns "done"
+        /*Using beforeEach to call "loadFeed" with a callback that returns "done"
+         *Keep "setTimeout()" in case the call to loadFeed takes to long to return.
+        */
         beforeEach(function(done) {
             setTimeout(function() {
                 loadFeed(0, done);
             }, 1);
         });
         /*After "loadFeed" has completed and "Done is called, use a jQuery selector
-         *to confirm that any instances of "feed .article" has an element
-         *is assigned the class "entry".
+         *to confirm that any instances of "feed .article" has at least one article 
+         *element assigned the class "entry".
         */
-        it('has at least one entry in a feed', function(done) {
+        it('have at least one entry in a feed', function(done) {
             $(document).ready(function() {
-                var currArticles = $('article');
-                var boolEntry = $('article').hasClass('entry');
-                expect(currArticles.length).toBeGreaterThan(0);
-                expect(boolEntry).toBe(true);
+                var allEntries = $('div.feed').find('article.entry')
+                expect(allEntries.length).toBeGreaterThan(0);
                 done();
             });
         });
@@ -103,26 +104,56 @@ $(function() {
           loop we don't need to keep count or worry about running "loadFeed" with an invalid index
           which would generate an error.
         */
-        var feedNum = -1,
-            lastArticle = '',
-            currArticle = '';
-
-        beforeEach(function(done) {
-            feedNum++;
+        //declare variables within the test suite scope.
+        var textNodes0,
+            textNodes1, 
+            allArticles = [];
+         
+        /*Using beforeEach to call "loadFeed" for two different RSS Feeds
+         *with a callback that returns "done".  Store article entries in variables for each feed.
+         *Keep "setTimeout()" in case the call to loadFeed takes too long to return.
+        */
+        beforeEach(function(done){
             setTimeout(function() {
-                loadFeed(feedNum, done);
-            }, 1);
+                loadFeed(1, function(){
+                    textNodes1 = $('div.feed').find('article.entry > h2').contents();
+                    setTimeout(function() {
+                        loadFeed(0,function(){
+                            textNodes0 = $('div.feed').find('article.entry > h2').contents();
+                            done();
+                        });
+                    },1);    
+                });
+            },1);
         });
 
+        /*Save the text nodes from each RSS Feed into an "entries" array.
+         *Populate the allArticles array with each entry from the first RSS Feed.
+        */
         it('content changes when a new feed is loaded', function(done) {
             $(document).ready(function() {
-                allFeeds.forEach(function(feed) {
-                    var currArticles = $('article');
-                    currArticle = currArticles[0];
-                    expect(lastArticle).not.toBe(currArticle);
-                    done();
-                }, this);
-            });
+                var entries0 = textNodes0.toArray();
+                entries0.forEach(function(entry){
+                    allArticles.push(entry);
+                    console.log(entry)
+                });
+         /*Using jQuery.inArray, check each text node from the second RSS Feed against
+         *the values already in the allArticles array.
+         *Returns -1 if the value isn't found in the array.  Add the value to the array.
+         *Returns an index position if the value is found in the array.  Test fails in this case.
+        */
+                var entries1 = textNodes1.toArray();
+                entries1.forEach(function(entry){
+                    expect($.inArray(entry,allArticles)).toBe(-1);
+                    allArticles.push(entry);
+                    console.log(entry)
+                });
+                done();
+            })
         });
     });
 }());
+        /*Testing every entry is preferable because in the case when feeds don't change for any given reason,
+         *but a new entry is added to the same feed, a false positive condition would ocurr when comparing
+         *the resulting HTML at the page level only instead of the individual entries.
+        */
