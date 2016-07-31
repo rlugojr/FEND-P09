@@ -36,7 +36,7 @@ $(function() {
         it('has names for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined;
-                expect(trim(feed.name)).not.toBe("");
+                expect(feed.name.trim()).not.toBe("");
                 expect(feed.name).not.toBeNull;
             }, this);
         });
