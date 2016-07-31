@@ -15,6 +15,7 @@ _This repository contains my version of the solution to complete Udacity's Front
 
 - Sample application provided by the awesome team at Udacity.
 - Examples of Jasmine test suites, created to test the sample application.
+- Validation of feeds using "regex-weburls.js", courtesy of [Diego Perini's](http://www.iport.it) _Regular Expression for URL validation_ [Gist](https://gist.github.com/dperini/729294)
 
 
 ###Using this Project
