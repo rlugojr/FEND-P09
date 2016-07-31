@@ -27,9 +27,9 @@ To run this project:
 1. Download or Fork this repository.
 2. Open "index.html" in a modern browser.
 3. Watch the tests flash by, the main application paints and then scroll down to see the results of the test suites.
-
-Alternatively, you can view a running instance of my [version](https://rlugojr.github.io/FEND-P09/), hosted on GitHub Pages.
 ```
+
+Also, you can view a running instance of my [version](https://rlugojr.github.io/FEND-P09/), hosted on GitHub Pages.
 
 ###Support
 -------
