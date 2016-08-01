@@ -10,10 +10,10 @@
   *          This JS file contains the Jasmine Test Suites "Spec" developed to test the sample application. 
  */
 
-'use strict';
-
 //Use the $() function ensures that the tests do not run until the DOM is ready.
 $(function() {
+    //useing function form of 'use strict' to prevent overflow into other code.
+    'use strict';
     //Create a test suite for the RSS Feeds.
     describe('RSS Feeds', function() {
         //Ensure that allFeeds object is defined and is not empty.
@@ -30,7 +30,7 @@ $(function() {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
                 expect(re_weburl.test(feed.url)).toBe(true);  //Uses regex-weburls.js to check for valid URL
-            }, this);
+            });
         });
 
         /*Ensure that each feed has a name value that is not null
@@ -40,7 +40,7 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name.length).not.toBe(0);
-            }, this);
+            });
         });
     });
 
@@ -92,7 +92,7 @@ $(function() {
         */
         it('have at least one entry in a feed', function(done) {
             $(document).ready(function() {
-                var allEntries = $('div.feed').find('article.entry')
+                var allEntries = $('div.feed').find('article.entry');
                 expect(allEntries.length).toBeGreaterThan(0);
                 done();
             });
@@ -132,7 +132,6 @@ $(function() {
                 var entries0 = textNodes0.toArray();
                 entries0.forEach(function(entry){
                     allArticles.push(entry);
-                    console.log(entry)
                 });
          /*Using jQuery.inArray, check each text node from the second RSS Feed against
          *the values already in the allArticles array.
@@ -143,10 +142,9 @@ $(function() {
                 entries1.forEach(function(entry){
                     expect($.inArray(entry,allArticles)).toBe(-1);
                     allArticles.push(entry);
-                    console.log(entry)
                 });
                 done();
-            })
+            });
         });
     });
 }());
