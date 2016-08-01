@@ -1,4 +1,4 @@
-/**
+/*
   * FEND-09 Feedreader Testing
   * feedreader.js v2.0
   * 
