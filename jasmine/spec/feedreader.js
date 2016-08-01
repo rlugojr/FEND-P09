@@ -29,7 +29,6 @@ $(function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
-                expect(feed.url).not.toBeNull;
                 expect(re_weburl.test(feed.url)).toBe(true);  //Uses regex-weburls.js to check for valid URL
             }, this);
         });
@@ -40,7 +39,7 @@ $(function() {
         it('have a name value for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
-                expect(feed.name).not.toBeNull;
+                expect(feed.name.length).not.toBe(0);
             }, this);
         });
     });
