@@ -95,48 +95,34 @@ $(function() {
     describe('New Feed Selection', function() {
         //declare variables within the test suite scope.
         var textNodes0,
-            textNodes1, 
-            allArticles = [];
+            textNodes1;
          
         /*Using beforeEach to call "loadFeed" for two different RSS Feeds
-         *with a callback that returns "done".  Store article entries in variables for each feed.
-         *Keep "setTimeout()" in case the call to loadFeed takes too long to return.
-        */
+         *with a callback that returns "done" at the end of the chain.
+         *Store the html of each article entry in an array for each feed.
+         */
         beforeEach(function(done){
             loadFeed(1, function(){
-                textNodes1 = $('div.feed').find('article.entry > h2').contents();
+                textNodes1 = $('div.feed').find('article.entry > h2').html();
                 loadFeed(0,function(){
-                    textNodes0 = $('div.feed').find('article.entry > h2').contents();
+                    textNodes0 = $('div.feed').find('article.entry > h2').html();
                     done();
                 });
             });
         });
 
-        /*Save the text nodes from each RSS Feed into an "entries" array.
+        /*Compare the textNodes arrays to ensure the contents of each are different.
          *Populate the allArticles array with each entry from the first RSS Feed.
         */
-        it('content changes when a new feed is loaded', function(done) {
+        it('content changes when a new feed is loaded', function() {
             $(document).ready(function() {
-                var entries0 = textNodes0.toArray();
-                entries0.forEach(function(entry){
-                    allArticles.push(entry);
-                });
-         /*Using jQuery.inArray, check each text node from the second RSS Feed against
-         *the values already in the allArticles array.
-         *Returns -1 if the value isn't found in the array.  Add the value to the array.
-         *Returns an index position if the value is found in the array.  Test fails in this case.
-        */
-                var entries1 = textNodes1.toArray();
-                entries1.forEach(function(entry){
-                    expect($.inArray(entry,allArticles)).toBe(-1);
-                    allArticles.push(entry);
-                });
-                done();
+                expect(textNodes0).not.toBe(textNodes1);
             });
         });
     });
 }());
-        /*Testing every entry is preferable because in the case when feeds don't change for any given reason,
-         *but a new entry is added to the same feed, a false positive condition would ocurr when comparing
-         *the resulting HTML at the page level only instead of the individual entries.
+        /*TODO: Implement method for testing entries from each loadFeed call against the next.
+         *This way we are certain that the entire contents are different or, if the next RSS feed
+         *fails to load but the same RSS feed did have a new entry, we wouldn't rely on only the latest
+         *entry as a basis for comparison between "snapshots" of the RSS Feeds and avoid false positives.
         */
