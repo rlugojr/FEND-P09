@@ -55,17 +55,18 @@ $(function() {
 
         /*Ensure that the "a" element is assigned the class "menu-icon-link"
          *Trigger the "click" event on "a" and confirm that the menu is visible.
-         *Trigger the "click" event on "a" again and confirm that the menu is hidden
-         *by confirming that "body .menu-hidden" is present.
         */
         it('is shown when the menu icon is clicked', function() {
-                $("a.menu-icon-link").trigger("click");
+                $("a.menu-icon-link").click();
                 expect($('body').hasClass('menu-hidden')).toBe(false);
         });
 
+        /*Trigger the "click" event on "a" again and confirm that the menu is hidden
+         *by confirming that "body .menu-hidden" is present.
+         */
         it('is hidden when the menu icon is clicked again', function() {
                 expect($('body').hasClass('menu-hidden')).toBe(false);
-                $("a.menu-icon-link").trigger("click");
+                $("a.menu-icon-link").click();
                 expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
@@ -76,19 +77,16 @@ $(function() {
          *Keep "setTimeout()" in case the call to loadFeed takes to long to return.
         */
         beforeEach(function(done) {
-            setTimeout(function() {
                 loadFeed(0, done);
-            }, 1);
         });
         /*After "loadFeed" has completed and "Done is called, use a jQuery selector
          *to confirm that any instances of "feed .article" has at least one article 
          *element assigned the class "entry".
         */
-        it('have at least one entry in a feed', function(done) {
+        it('have at least one entry in a feed', function() {
             $(document).ready(function() {
-                var allEntries = $('div.feed').find('article.entry');
+                var allEntries = $('.feed .entry');
                 expect(allEntries.length).toBeGreaterThan(0);
-                done();
             });
         });
     });
@@ -105,17 +103,13 @@ $(function() {
          *Keep "setTimeout()" in case the call to loadFeed takes too long to return.
         */
         beforeEach(function(done){
-            setTimeout(function() {
-                loadFeed(1, function(){
-                    textNodes1 = $('div.feed').find('article.entry > h2').contents();
-                    setTimeout(function() {
-                        loadFeed(0,function(){
-                            textNodes0 = $('div.feed').find('article.entry > h2').contents();
-                            done();
-                        });
-                    },1);    
+            loadFeed(1, function(){
+                textNodes1 = $('div.feed').find('article.entry > h2').contents();
+                loadFeed(0,function(){
+                    textNodes0 = $('div.feed').find('article.entry > h2').contents();
+                    done();
                 });
-            },1);
+            });
         });
 
         /*Save the text nodes from each RSS Feed into an "entries" array.
