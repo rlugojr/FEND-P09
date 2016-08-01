@@ -42,7 +42,8 @@ To run this project:
 ```english
 1. Download or Fork this repository.
 2. Open "index.html" in a modern browser.
-3. Watch the tests flash by, the main application paints and then scroll down to see the results of the test suites.
+3. Watch the tests flash by, the main application paints and then
+   scroll down to see the results of the test suites.
 ```
 
 Also, you can view a running instance of my [version](https://rlugojr.github.io/FEND-P09/), hosted on GitHub Pages.
@@ -51,7 +52,8 @@ Also, you can view a running instance of my [version](https://rlugojr.github.io/
 
 ### Support
 
-If you have any difficulty using this project or understanding the code, please refer to this excellent online source => [Project Technical Docs](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
+If you have any difficulty using this project or understanding the code,
+please refer to this excellent online source => [Project Technical Docs](https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001)
 
 ---
 
@@ -64,7 +66,13 @@ My solution to the assignment is free for use by anyone, especially other Udacit
 
 ```english
 Free Public License 1.0.0
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.
+Permission to use, copy, modify, and/or distribute this software for any purpose
+with or without fee is hereby granted.
 
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD
+TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR
+CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ```
