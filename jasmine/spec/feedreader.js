@@ -49,9 +49,7 @@ $(function() {
 
         //*Ensure the "body" element has the class "menu-hidden" assigned by default. 
         it('is hidden by default', function() {
-            $(document).ready(function() {
                 expect($('body').hasClass('menu-hidden')).toBe(true);
-            });
         });
 
 
@@ -61,18 +59,14 @@ $(function() {
          *by confirming that "body .menu-hidden" is present.
         */
         it('is shown when the menu icon is clicked', function() {
-            $(document).ready(function() {
                 $("a.menu-icon-link").trigger("click");
                 expect($('body').hasClass('menu-hidden')).toBe(false);
-            });
         });
 
         it('is hidden when the menu icon is clicked again', function() {
-            $(document).ready(function() {
                 expect($('body').hasClass('menu-hidden')).toBe(false);
                 $("a.menu-icon-link").trigger("click");
                 expect($('body').hasClass('menu-hidden')).toBe(true);
-            });
         });
     });
 
