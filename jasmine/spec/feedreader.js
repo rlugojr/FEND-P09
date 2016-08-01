@@ -10,6 +10,8 @@
   *          This JS file contains the Jasmine Test Suites "Spec" developed to test the sample application. 
  */
 
+'use strict';
+
 //Use the $() function ensures that the tests do not run until the DOM is ready.
 $(function() {
     //Create a test suite for the RSS Feeds.
@@ -25,7 +27,7 @@ $(function() {
         */
         it('have URLs for each feed.', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.url).toBeDefined;
+                expect(feed.url).toBeDefined();
                 expect(feed.url.length).not.toBe(0);
                 expect(feed.url).not.toBeNull;
                 expect(re_weburl.test(feed.url)).toBe(true);  //Uses regex-weburls.js to check for valid URL
@@ -37,7 +39,7 @@ $(function() {
         */
         it('have a name value for each feed.', function() {
             allFeeds.forEach(function(feed) {
-                expect(feed.name).toBeDefined;
+                expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBeNull;
             }, this);
         });
@@ -59,9 +61,15 @@ $(function() {
          *Trigger the "click" event on "a" again and confirm that the menu is hidden
          *by confirming that "body .menu-hidden" is present.
         */
-        it('changes visibiity when the menu icon is clicked', function() {
+        it('is shown when the menu icon is clicked', function() {
             $(document).ready(function() {
                 $("a.menu-icon-link").trigger("click");
+                expect($('body').hasClass('menu-hidden')).toBe(false);
+            });
+        });
+
+        it('is hidden when the menu icon is clicked again', function() {
+            $(document).ready(function() {
                 expect($('body').hasClass('menu-hidden')).toBe(false);
                 $("a.menu-icon-link").trigger("click");
                 expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -94,16 +102,6 @@ $(function() {
 
     //Test Suite for RSS Feed Selection change.
     describe('New Feed Selection', function() {
-
-        /*Very similar to the prior test, using the structure for handling asynchronous requests.
-          This test required declaring local variables
-          outside of each function so that they are accessible anywhere.  One variable
-          keeps track of the feedIndex to be loaded and the other two contain the prior
-          feed's article text and the current feed's article text for comparison, to 
-          ensure that the text is different each time the feed is switched.  By using a forEach
-          loop we don't need to keep count or worry about running "loadFeed" with an invalid index
-          which would generate an error.
-        */
         //declare variables within the test suite scope.
         var textNodes0,
             textNodes1, 
