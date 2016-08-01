@@ -18,6 +18,21 @@ _This repository contains my version of the solution to complete Udacity's Front
 - Validation of feeds using "regex-weburls.js", courtesy of [Diego Perini's](http://www.iport.it) _Regular Expression for URL validation_ [Gist](https://gist.github.com/dperini/729294)
 
 
+###The Test Suites
+------------------
+
+| Test Suite | Test | Description|
+|------------|------|------------|
+| RSS Feeds| 'are defined' | Confirm that the object returned from loadFeed is defined and not empty. |
+| RSS Feeds| 'have URLs for each feed.' | Ensure each URL in each RSS feed is defined, contains a value and that the value has been validated |
+| RSS Feeds| 'have a name value for each feed.' | Confirm that each feed has a "name" value assigned and is not empty |
+| The Menu | 'is hidden by default' | The menu must be hidden by default on startup. |
+| The Menu | 'is shown when the menu icon is clicked' | Trigger the assigned click event to display the menu and confirm that it functioned as expected.|
+| The Menu | 'is hidden when the menu icon is clicked again' | Trigger the click event again to hide the menu.|
+| Initial Entries | 'have at least one entry in a feed' | Confirm that at least one "entry" is available in the "feed" container after loadFeed() is called. |
+| New Feed Selection | 'content changes when a new feed is loaded' | Confirm that the entries change when a new RSS feed is loaded using loadFeed() |
+
+
 ###Using this Project
 ------------
 
