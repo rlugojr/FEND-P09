@@ -19,7 +19,7 @@ $(function() {
         //Ensure that allFeeds object is defined and is not empty.
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
-            expect(feed.url).toBeTruthy();//Per Reviewer notes.
+            expect(allfeeds.url).toBeTruthy();//Per Reviewer notes.
             expect(allFeeds.length).not.toBe(0);
         });
 
