@@ -19,6 +19,7 @@ $(function() {
         //Ensure that allFeeds object is defined and is not empty.
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
+            expect(feed.url).toBeTruthy();//Per Reviewer notes.
             expect(allFeeds.length).not.toBe(0);
         });
 
@@ -28,7 +29,8 @@ $(function() {
         it('have URLs for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
-                expect(feed.url.length).not.toBe(0);
+                //expect(feed.url.length).not.toBe(0);
+                expect(feed.url).toBeTruthy(); //Per Reviewer notes.
                 expect(re_weburl.test(feed.url)).toBe(true);  //Uses regex-weburls.js to check for valid URL
             });
         });
@@ -39,7 +41,7 @@ $(function() {
         it('have a name value for each feed.', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
-                expect(feed.name.length).not.toBe(0);
+                expect(feed.name).toBeTruthy();//Per Reviewer notes.
             });
         });
     });
@@ -49,7 +51,7 @@ $(function() {
 
         //*Ensure the "body" element has the class "menu-hidden" assigned by default. 
         it('is hidden by default', function() {
-                expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
 
@@ -57,17 +59,17 @@ $(function() {
          *Trigger the "click" event on "a" and confirm that the menu is visible.
         */
         it('is shown when the menu icon is clicked', function() {
-                $("a.menu-icon-link").click();
-                expect($('body').hasClass('menu-hidden')).toBe(false);
+            $('a.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
         });
 
         /*Trigger the "click" event on "a" again and confirm that the menu is hidden
          *by confirming that "body .menu-hidden" is present.
          */
         it('is hidden when the menu icon is clicked again', function() {
-                expect($('body').hasClass('menu-hidden')).toBe(false);
-                $("a.menu-icon-link").click();
-                expect($('body').hasClass('menu-hidden')).toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+            $("a.menu-icon-link").click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
     });
 
